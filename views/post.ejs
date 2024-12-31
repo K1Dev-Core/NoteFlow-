@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-content">
+        <a href="/" class="back-button">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1>Post</h1>
+      </div>
+    </header>
+
+    <main>
+      <article class="post" data-post-id="<%= post.id %>">
+        <div class="post-header">
+          <div class="avatar"><%= post.username.charAt(0).toUpperCase() %></div>
+          <div class="post-meta">
+            <div class="username"><%= post.username %></div>
+            <div class="timestamp"><%= new Date(post.timestamp).toLocaleString() %></div>
+          </div>
+        </div>
+
+        <% if (post.content) { %>
+          <div class="post-content"><%= post.content %></div>
+        <% } %>
+
+        <% if (post.audio) { %>
+          <div class="audio-player">
+            <audio controls src="<%= post.audio %>"></audio>
+          </div>
+        <% } %>
+
+        <div class="post-actions">
+          <button class="action-button like-button">
+            <i class="far fa-heart"></i>
+            <span class="like-count"><%= post.likes.length %></span>
+          </button>
+          <button class="action-button comment-button">
+            <i class="far fa-comment"></i>
+            <span class="comment-count"><%= post.comments.length %></span>
+          </button>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/client.js"></script>
+</body>
+</html>
